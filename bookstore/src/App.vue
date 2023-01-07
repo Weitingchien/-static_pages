@@ -4,7 +4,6 @@
       <v-app-bar-title>熱銷排行榜</v-app-bar-title>
       <v-spacer></v-spacer>
       <v-btn>天瓏網路書店</v-btn>
-      <v-btn>博客來</v-btn>
       <v-btn>誠品</v-btn>
 
       <v-btn
@@ -54,11 +53,6 @@ const getList = async () => {
     });
 };
 getList();
-/*
-const getList(){
-
-}
-*/
 
 const onClick = () => {
   if (theme.value === 'light') {
