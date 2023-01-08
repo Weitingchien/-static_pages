@@ -3,8 +3,8 @@
     <v-app-bar>
       <v-app-bar-title>熱銷排行榜</v-app-bar-title>
       <v-spacer></v-spacer>
-      <v-btn>天瓏網路書店</v-btn>
-      <v-btn>誠品</v-btn>
+      <v-btn @click="filterBooks(0)">天瓏網路書店</v-btn>
+      <v-btn @click="filterBooks(1)">誠品</v-btn>
 
       <v-btn
         :prepend-icon="
@@ -39,6 +39,20 @@ import { ref, reactive } from 'vue';
 
 const theme = ref('dark');
 const list = reactive([]);
+const listTemp = reactive([]);
+
+const filterBooks = bookStoreID => {
+  list[0] = listTemp[0];
+  if (bookStoreID === 0) {
+    list[0] = list[0].filter(item => {
+      if (item.top <= 24) return item;
+    });
+  } else {
+    list[0] = list[0].filter(item => {
+      if (item.top > 24) return item;
+    });
+  }
+};
 
 const getList = async () => {
   await axios
@@ -47,7 +61,7 @@ const getList = async () => {
       res.data.data.Items.sort((a, b) => {
         return a.top - b.top;
       });
-
+      listTemp.push(res.data.data.Items);
       list.push(res.data.data.Items);
       console.log(list);
     });
